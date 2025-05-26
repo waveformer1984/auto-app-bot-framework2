@@ -1,0 +1,39 @@
+#!/usr/bin/env python3
+import os
+
+REQUIRED_PATHS = [
+    "README.md",
+    "CHANGELOG.md",
+    "release-notes.md",
+    ".cz.toml",
+    "requirements.txt",
+    ".github/workflows/auto-release.yml",
+    ".git/hooks/prepare-commit-msg",
+    "src/main.py",
+    "src/core/",
+    "src/handlers/",
+    "src/integrations/",
+    "src/utils/",
+    "config/default_config.yaml",
+    "tests/test_main.py",
+    "data/sample_input.json",
+    "assets/bot_avatar.png"
+]
+
+def check_structure(base_dir="."):
+    print("🔍 Auditing project structure...\n")
+    missing = []
+    for path in REQUIRED_PATHS:
+        full_path = os.path.join(base_dir, path)
+        if not os.path.exists(full_path):
+            print(f"❌ Missing: {path}")
+            missing.append(path)
+        else:
+            print(f"✅ Found:  {path}")
+    if not missing:
+        print("\n🎉 All required files and folders are present!")
+    else:
+        print(f"\n⚠️  {len(missing)} items missing. Please review.")
+
+if __name__ == "__main__":
+    check_structure()
